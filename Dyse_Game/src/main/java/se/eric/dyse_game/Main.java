@@ -7,17 +7,18 @@ public class Main {
     private static Player player2;
     private static Dyse dyse = new Dyse(6);
     private static Scanner scan = new Scanner(System.in);
+    private static InputHandler inputHandler = new InputHandler();
     private static int rounds;                                          //declarer all mina variable
 
     public static void main(String[] args) {
-        System.out.println("Welcome to Dyse Game");
+        System.out.println("Welcome to Dice Game");
         System.out.print("What is player 1 name: ");
-        player1 = new Player(scan.nextLine());                          //frågar efter spelarnas name och sparar det
+        player1 = new Player(inputHandler.getLine());                   //frågar efter spelarnas name och sparar det
         player2 = new Player();                                         //gjorde på två set bara för att visa att jag kan :)
 
-        boolean conntinus = true;
-        while (conntinus) {
-            conntinus = playGame();
+        boolean cont = true;
+        while (cont) {
+            cont = playGame();
             player1.restetWins();
             player2.restetWins();
         }
@@ -27,41 +28,25 @@ public class Main {
 
 
     private static boolean playGame() {
-        boolean oGiltigt;
-        do {
-           oGiltigt= getPlayRonds();
-        } while (oGiltigt);
+        rounds =inputHandler.getPlayRonds();
 
 
-        for (int i = 0; i < rounds; i++) {                              //gör en lop av metoden playerRound så många gåner som har sats tidigare
+        for (int i = 0; i < rounds; i++) {                                                              //gör en lop av metoden playerRound så många gånger som har sats tidigare
             playerRound();
         }
-        System.out.println(player1.getName() + " has won " + player1.getWins() + " times, "           //skriver utt totalen
-                + player2.getName() + " has won " + player2.getWins() + " times and ther was " +
+        System.out.println(player1.getName() + " has won " + player1.getWins() + " times, "             //skriver utt totalen
+                + player2.getName() + " has won " + player2.getWins() + " times and there was " +
                 (rounds - (player1.getWins() + player2.getWins())) + " ties");
 
-        calakWiner();
+        calkWinner();
 
-        return getContinue();
+        return inputHandler.getContinue();
     }
 
-    private static boolean getContinue(){
-        while (true) {
-            System.out.print("do you whant to conntinu (Y/N):");
-            scan = new Scanner(System.in);
-            char input = scan.next().charAt(0);
-            if (input == 'Y') {
-                return true;
-            } else if (input == 'N') {
-                return false;
-            } else {
-                System.out.println("Wrong input");
-            }
-        }
-    }
 
-    private static void calakWiner(){
-        if (player1.getWins() < player2.getWins()) {                                               //titar vem som har vunnit och skriver utt det
+
+    private static void calkWinner(){
+        if (player1.getWins() < player2.getWins()) {                    //tittar vem som har vunnit och skriver utt det
             System.out.println(player2.getName() + " HAS WON");
         } else if (player2.getWins() < player1.getWins()) {
             System.out.println(player1.getName() + " HAS WON");
@@ -72,32 +57,12 @@ public class Main {
         }
     }
 
-    private static boolean getPlayRonds(){
-        boolean oGiltigt;
-        try {
-            System.out.print("How many rounds: ");
-            scan = new Scanner(System.in);
-            rounds = scan.nextInt();                                    //frågar efter hur många runder man vill köra
-            if (rounds > 0) {                                           //titar efter ifall det har uppstått nåra fell
-                oGiltigt = false;
-            } else {                                                    //går in ifall inmatningen är under 1
-                System.out.println("Wrong input");
-                oGiltigt = true;
-            }
-        } catch (Exception e) {                                         //går in ifall inmatingen inte är en int
-            System.out.println("Wrong input");
-            oGiltigt = true;
-        }
-
-        return oGiltigt;
-    }
-
 
     private static void playerRound() {                                          //kör en runde av spelet
-        player1.setDyseRolle(dyse.playerTro(player1));
-        player2.setDyseRolle(dyse.playerTro(player2));                          //gör ett tärnings kas för varje splerare och sparar det
+        player1.setDyseRolle(dyse.playerThrow(player1));
+        player2.setDyseRolle(dyse.playerThrow(player2));                          //gör ett tärnings kas för varje spelare och sparar det
 
-        if (player1.getDyseRolle() < player2.getDyseRolle()) {                    //titar vem som van och sparar det
+        if (player1.getDyseRolle() < player2.getDyseRolle()) {                    //tittar vem som van och sparar det
             player2.hasWon();
             System.out.println(player2.getName() + " won and has won " + player2.getWins() + " times");
         } else if (player2.getDyseRolle() < player1.getDyseRolle()) {
@@ -110,6 +75,6 @@ public class Main {
             System.out.println("Error 1");                                      //ifall något går fell
         }
         scan = new Scanner(System.in);
-        scan.nextLine();                                                        //väntar på user input inan det fortsäter
+        scan.nextLine();                                                        //väntar på user input innan det fortsätter
     }
 }

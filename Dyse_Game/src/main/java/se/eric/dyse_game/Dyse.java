@@ -4,16 +4,16 @@ import java.util.Random;
 
 public class Dyse {
     private Random rand = new Random();
-    private int dyseTrow;
-    private int dyseSids;                                       //kommer alltid vara sex sidigt men lämnar rum för uttväkling
+    private int diceThrow;
+    private int diceSids;                                       //kommer alltid vara sex siding men lämnar rum för utveckling
 
-    public Dyse(int dyseSids) {
-        this.dyseSids = dyseSids;
+    public Dyse(int diceSids) {
+        this.diceSids = diceSids;
     }
 
-    public int playerTro(Player player) {
-        dyseTrow = rand.nextInt(dyseSids) + 1;
-        System.out.println("Player  " + player.getName() + " hase trown a " + dyseTrow);
-        return dyseTrow;
-    }                                                           //returnar ett värde mellan 1 och 6 och skriver utt att spelaren har fåt det resultate
+    public int playerThrow(Player player) {
+        diceThrow = rand.nextInt(diceSids) + 1;
+        System.out.println("Player  " + player.getName() + " hase thrown a " + diceThrow);
+        return diceThrow;
+    }                                                           //returner ett värde mellan 1 och 6 och skriver utt att spelaren har fåt det resultat
 }

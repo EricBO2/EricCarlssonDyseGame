@@ -7,17 +7,17 @@ public class Player {
     private int wins = 0;
     private int dyseRolle;                      //deklarerar variabler
 
-    public Player(String name) {                //construktor
+    public Player(String name) {                //constructor
         this.name = name;
     }
 
-    public Player() {                            //andra consstruktor
+    public Player() {                            //andra constructor
         System.out.print("What is player 2 name: ");
         Scanner scan = new Scanner(System.in);
         name = scan.nextLine();
     }
 
-    public String getName() {                   //get och seters
+    public String getName() {                   //get och setters
         return name;
     }
 
