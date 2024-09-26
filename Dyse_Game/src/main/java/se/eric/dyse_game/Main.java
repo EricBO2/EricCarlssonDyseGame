@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class Main {
     private static Player player1;
     private static Player player2;
-    private static Dyse dyse = new Dyse(6);
-    private static Scanner scan = new Scanner(System.in);
+    private static Dyse dyse ;
     private static InputHandler inputHandler = new InputHandler();
     private static int rounds;                                          //declarer all mina variable
 
@@ -14,7 +13,11 @@ public class Main {
         System.out.println("Welcome to Dice Game");
         System.out.print("What is player 1 name: ");
         player1 = new Player(inputHandler.getLine());                   //frågar efter spelarnas name och sparar det
-        player2 = new Player();                                         //gjorde på två set bara för att visa att jag kan :)
+        System.out.print("What is player 2 name: ");
+        player2 = new Player(inputHandler.getLine());                             //gjorde på två set för att demonstrate två set att göra det och för att jag gillar att använda overload
+        dyse = new Dyse(inputHandler.getInt("How many sided dyes: ", 1));
+
+
 
         boolean cont = true;
         while (cont) {
@@ -23,12 +26,13 @@ public class Main {
             player2.restetWins();
         }
         System.out.println("Thanks for playing!");
+        inputHandler.closeScanner();
 
     }
 
 
     private static boolean playGame() {
-        rounds =inputHandler.getPlayRonds();
+        rounds =inputHandler.getInt("How many rounds: ",1);
 
 
         for (int i = 0; i < rounds; i++) {                                                              //gör en lop av metoden playerRound så många gånger som har sats tidigare
@@ -53,7 +57,7 @@ public class Main {
         } else if (player1.getWins() == player2.getWins()) {
             System.out.println("This game was a tie");
         } else {
-            System.out.println("Error 2");
+            System.out.println("Error 2 (game winner has gon wrong)");
         }
     }
 
@@ -72,9 +76,8 @@ public class Main {
         } else if (player1.getDyseRolle() == player2.getDyseRolle()) {
             System.out.println("This round was a tye");
         } else {
-            System.out.println("Error 1");                                      //ifall något går fell
+            System.out.println("Error 1 (round winn has gone wrong)");                                      //ifall något går fell
         }
-        scan = new Scanner(System.in);
-        scan.nextLine();                                                        //väntar på user input innan det fortsätter
+        inputHandler.getLine();                                                      //väntar på user input innan det fortsätter
     }
 }

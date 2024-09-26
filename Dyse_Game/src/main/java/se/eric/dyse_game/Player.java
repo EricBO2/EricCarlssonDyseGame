@@ -1,6 +1,5 @@
 package se.eric.dyse_game;
 
-import java.util.Scanner;
 
 public class Player {
     private String name;
@@ -11,11 +10,6 @@ public class Player {
         this.name = name;
     }
 
-    public Player() {                            //andra constructor
-        System.out.print("What is player 2 name: ");
-        Scanner scan = new Scanner(System.in);
-        name = scan.nextLine();
-    }
 
     public String getName() {                   //get och setters
         return name;

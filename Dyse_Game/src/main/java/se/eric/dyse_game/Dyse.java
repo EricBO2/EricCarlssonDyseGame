@@ -16,4 +16,5 @@ public class Dyse {
         System.out.println("Player  " + player.getName() + " hase thrown a " + diceThrow);
         return diceThrow;
     }                                                           //returner ett värde mellan 1 och 6 och skriver utt att spelaren har fåt det resultat
+
 }

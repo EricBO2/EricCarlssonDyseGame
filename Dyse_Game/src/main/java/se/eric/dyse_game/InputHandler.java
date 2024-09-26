@@ -3,8 +3,11 @@ package se.eric.dyse_game;
 import java.util.Scanner;
 
 public class InputHandler {
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan ;
 
+    public InputHandler() {
+        scan = new Scanner(System.in);
+    }
 
     public String getLine(){
         return  scan.nextLine();
@@ -13,7 +16,6 @@ public class InputHandler {
     public boolean getContinue(){
         while (true) {
             System.out.print("do you what to continue (Y/N):");
-            scan = new Scanner(System.in);
             char input = scan.next().charAt(0);
             if (input == 'Y') {
                 return true;
@@ -25,26 +27,32 @@ public class InputHandler {
         }
     }
 
-    public int getPlayRonds(){
-
+    public int getInt(String message, int min){
         boolean oGiltigt;
-        int rounds = 0;
+        int number = 0;
         do {
             try {
-                System.out.print("How many rounds: ");
-                scan = new Scanner(System.in);
-                rounds = scan.nextInt();                                    //frågar efter hur många rundor man vill köra
-                if (rounds > 0) {                                           //tittar efter ifall det har uppstått nåra fell
+                System.out.print(message);
+                number = Integer.parseInt( scan.nextLine());                                    //frågar efter ett number
+
+
+                if (number > min) {                                         //tittar efter ifall det har uppstått nåra fell
                     oGiltigt = false;
-                } else {                                                    //går in ifall inmatningen är under 1
-                    System.out.println("Wrong input");
+                } else {                                                    //går in ifall inmatningen är under minimum värdet
+                    System.out.println("Wrong input1 (below min)");
                     oGiltigt = true;
                 }
             } catch (Exception e) {                                         //går in ifall inmatningen inte är en int
-                System.out.println("Wrong input");
+                System.out.println(e.getMessage());
+                System.out.println("Wrong input (Not a INT)");
                 oGiltigt = true;
             }
         }while (oGiltigt);
-        return rounds;
+        return number;
     }
+
+    public void closeScanner(){
+        scan.close();
+    }
+
 }
