@@ -16,10 +16,11 @@ public class InputHandler {
     public boolean getContinue(){
         while (true) {
             System.out.print("do you what to continue (Y/N):");
-            char input = scan.next().charAt(0);
-            if (input == 'Y') {
+            Scanner sc = new Scanner(System.in);                        //ett fel om jag andväder samma scaner här som överallt annars
+            char input = sc.next().charAt(0);
+            if (input == 'Y' || input == 'y') {
                 return true;
-            } else if (input == 'N') {
+            } else if (input == 'N' || input == 'n') {
                 return false;
             } else {
                 System.out.println("Wrong input");
@@ -28,13 +29,13 @@ public class InputHandler {
     }
 
     public int getInt(String message, int min){
+
         boolean oGiltigt;
         int number = 0;
         do {
             try {
                 System.out.print(message);
-                number = Integer.parseInt( scan.nextLine());                                    //frågar efter ett number
-
+                number = Integer.parseInt( scan.nextLine());                //frågar efter ett number
 
                 if (number > min) {                                         //tittar efter ifall det har uppstått nåra fell
                     oGiltigt = false;
@@ -43,7 +44,7 @@ public class InputHandler {
                     oGiltigt = true;
                 }
             } catch (Exception e) {                                         //går in ifall inmatningen inte är en int
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
                 System.out.println("Wrong input (Not a INT)");
                 oGiltigt = true;
             }
